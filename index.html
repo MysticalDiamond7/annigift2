@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Our Little Anniversary Arcade</title>
+  <title>The Secret Anniversary Vault</title>
   <style>
     :root {
-      --bg-1: #fff1f7;
-      --bg-2: #f4e8ff;
-      --bg-3: #e8f8ff;
-      --text: #3c2548;
-      --muted: #7d5b8c;
-      --card: rgba(255, 255, 255, 0.78);
-      --accent: #ff7ab6;
-      --accent-2: #8c6cff;
-      --accent-3: #ffd166;
-      --shadow: 0 18px 45px rgba(83, 45, 105, 0.18);
-      --radius: 28px;
+      --bg-1: #12081f;
+      --bg-2: #25113a;
+      --bg-3: #4d1f53;
+      --text: #fff7ff;
+      --muted: #decaec;
+      --muted-2: #bfa6d1;
+      --card: rgba(255, 255, 255, 0.13);
+      --card-strong: rgba(255, 255, 255, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --accent: #ff8ac7;
+      --accent-2: #a88cff;
+      --accent-3: #ffd36e;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+      --radius: 30px;
     }
 
     * {
@@ -34,24 +37,29 @@
       min-height: 100vh;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(255, 122, 182, 0.38), transparent 28%),
-        radial-gradient(circle at 80% 15%, rgba(140, 108, 255, 0.26), transparent 30%),
+        radial-gradient(circle at 15% 5%, rgba(255, 138, 199, 0.32), transparent 28%),
+        radial-gradient(circle at 82% 18%, rgba(168, 140, 255, 0.28), transparent 30%),
+        radial-gradient(circle at 50% 95%, rgba(255, 211, 110, 0.16), transparent 34%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3));
       overflow-x: hidden;
     }
 
-    .sparkle {
+    img {
+      max-width: 100%;
+    }
+
+    .stars {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,0.9) 0 2px, transparent 3px),
-        radial-gradient(circle, rgba(255,122,182,0.45) 0 2px, transparent 3px),
-        radial-gradient(circle, rgba(140,108,255,0.4) 0 2px, transparent 3px);
-      background-size: 120px 120px, 180px 180px, 240px 240px;
-      animation: drift 22s linear infinite;
-      opacity: 0.7;
+        radial-gradient(circle, rgba(255,255,255,0.9) 0 1.5px, transparent 2.8px),
+        radial-gradient(circle, rgba(255,138,199,0.65) 0 1.5px, transparent 3px),
+        radial-gradient(circle, rgba(168,140,255,0.62) 0 1.5px, transparent 3px);
+      background-size: 100px 100px, 160px 160px, 230px 230px;
+      animation: drift 24s linear infinite;
+      opacity: 0.56;
     }
 
     @keyframes drift {
@@ -62,9 +70,9 @@
     .page {
       position: relative;
       z-index: 1;
-      max-width: 1120px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 32px 18px 70px;
+      padding: 24px 18px 70px;
     }
 
     header {
@@ -72,7 +80,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 18px;
-      margin-bottom: 54px;
+      margin-bottom: 48px;
     }
 
     .logo {
@@ -81,10 +89,12 @@
       gap: 10px;
       padding: 12px 18px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.62);
+      background: rgba(255,255,255,0.12);
       box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
-      font-weight: 800;
+      border: 1px solid var(--glass-border);
+      font-weight: 900;
+      white-space: nowrap;
     }
 
     nav {
@@ -97,35 +107,46 @@
     nav a {
       color: var(--text);
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 0.92rem;
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.52);
+      background: rgba(255,255,255,0.11);
+      border: 1px solid rgba(255,255,255,0.14);
       transition: 0.2s ease;
     }
 
     nav a:hover {
       transform: translateY(-2px);
-      background: white;
+      background: rgba(255,255,255,0.19);
     }
 
     .hero {
-      min-height: 76vh;
+      min-height: 72vh;
       display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 42px 0 70px;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 28px;
+      padding: 34px 0 60px;
+    }
+
+    .hero-card,
+    .hero-photos,
+    .music-player,
+    .gift-card,
+    .photo-card,
+    .letter,
+    .date-card,
+    .secret {
+      background: var(--card);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
     }
 
     .hero-card {
-      width: min(900px, 100%);
-      padding: clamp(30px, 7vw, 72px);
-      border-radius: 42px;
-      background: rgba(255,255,255,0.64);
-      border: 1px solid rgba(255,255,255,0.8);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
+      padding: clamp(28px, 6vw, 62px);
+      border-radius: 44px;
       position: relative;
       overflow: hidden;
     }
@@ -135,50 +156,60 @@
       position: absolute;
       width: 260px;
       height: 260px;
-      background: rgba(255, 209, 102, 0.34);
+      background: rgba(255, 211, 110, 0.16);
       border-radius: 999px;
-      right: -90px;
-      top: -90px;
+      right: -95px;
+      top: -100px;
     }
 
     .tiny-label {
       display: inline-block;
       padding: 9px 16px;
       border-radius: 999px;
-      background: #fff0a8;
-      font-weight: 800;
+      background: rgba(255, 211, 110, 0.19);
+      border: 1px solid rgba(255, 211, 110, 0.36);
+      color: #fff2bc;
+      font-weight: 900;
       margin-bottom: 18px;
       transform: rotate(-1deg);
     }
 
     h1 {
-      font-size: clamp(2.5rem, 8vw, 5.8rem);
+      font-size: clamp(2.45rem, 7vw, 5.65rem);
       line-height: 0.92;
       letter-spacing: -4px;
       margin-bottom: 22px;
     }
 
     .gradient-text {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .hero p {
-      max-width: 680px;
-      margin: 0 auto;
+    .hero p,
+    .section-title p,
+    .music-subtitle,
+    .gift-card p,
+    .photo-card p,
+    .letter,
+    .date-card p,
+    .secret p {
       color: var(--muted);
-      font-size: clamp(1rem, 2vw, 1.25rem);
       line-height: 1.7;
+    }
+
+    .hero p {
+      max-width: 720px;
+      font-size: clamp(1rem, 2vw, 1.2rem);
     }
 
     .button-row {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 14px;
-      margin-top: 32px;
+      margin-top: 30px;
     }
 
     .btn {
@@ -189,12 +220,13 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      min-height: 48px;
       padding: 14px 22px;
       border-radius: 999px;
-      font-weight: 900;
+      font-weight: 950;
       color: white;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 12px 24px rgba(255, 122, 182, 0.25);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
       transition: 0.22s ease;
     }
 
@@ -204,11 +236,85 @@
 
     .btn.secondary {
       color: var(--text);
-      background: white;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .hero-photos {
+      border-radius: 44px;
+      min-height: 520px;
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+    }
+
+    .photo-stack {
+      position: relative;
+      height: 100%;
+      min-height: 484px;
+    }
+
+    .stack-photo {
+      position: absolute;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.28);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .stack-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .stack-photo.one {
+      width: 72%;
+      height: 62%;
+      left: 5%;
+      top: 4%;
+      transform: rotate(-5deg);
+      z-index: 2;
+    }
+
+    .stack-photo.two {
+      width: 58%;
+      height: 48%;
+      right: 2%;
+      top: 26%;
+      transform: rotate(6deg);
+      z-index: 3;
+    }
+
+    .stack-photo.three {
+      width: 64%;
+      height: 42%;
+      left: 18%;
+      bottom: 2%;
+      transform: rotate(-1deg);
+      z-index: 4;
+    }
+
+    .photo-badge {
+      position: absolute;
+      z-index: 5;
+      left: 22px;
+      bottom: 22px;
+      max-width: 82%;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: rgba(18, 8, 31, 0.68);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--text);
+      font-weight: 900;
+      line-height: 1.35;
+      backdrop-filter: blur(12px);
     }
 
     section {
-      margin: 82px 0;
+      margin: 80px 0;
     }
 
     .section-title {
@@ -222,66 +328,238 @@
       margin-bottom: 10px;
     }
 
-    .section-title p {
-      color: var(--muted);
-      max-width: 640px;
-      margin: auto;
-      line-height: 1.7;
+    .music-wrap {
+      display: grid;
+      place-items: center;
     }
 
-    .games-grid {
+    .music-player {
+      width: min(760px, 100%);
+      border-radius: 36px;
+      padding: clamp(22px, 5vw, 36px);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .music-player::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -10%;
+      width: 280px;
+      height: 280px;
+      border-radius: 999px;
+      background: rgba(255, 138, 199, 0.15);
+    }
+
+    .player-top {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .album-art {
+      width: 92px;
+      height: 92px;
+      flex: 0 0 auto;
+      border-radius: 26px;
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      place-items: center;
+      font-size: 2.4rem;
+      background: linear-gradient(135deg, rgba(255,138,199,0.72), rgba(168,140,255,0.72));
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow: 0 18px 34px rgba(0,0,0,0.22);
+    }
+
+    .track-info h3 {
+      font-size: clamp(1.3rem, 4vw, 2rem);
+      margin-bottom: 6px;
+      line-height: 1.05;
+    }
+
+    .music-subtitle {
+      font-size: 0.98rem;
+    }
+
+    .progress-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 46px 1fr 46px;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0 20px;
+      color: var(--muted-2);
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .control-btn {
+      border: 1px solid rgba(255,255,255,0.22);
+      cursor: pointer;
+      color: var(--text);
+      background: rgba(255,255,255,0.14);
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      font-size: 1.05rem;
+      font-weight: 950;
+      transition: 0.2s ease;
+    }
+
+    .control-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.22);
+    }
+
+    .play-btn {
+      width: 68px;
+      height: 68px;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: 0;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.24);
+    }
+
+    .volume-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-weight: 900;
+      padding: 14px 16px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .vault-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 16px;
     }
 
-    .game-card {
-      min-height: 260px;
+    .gift-card {
+      min-height: 285px;
       padding: 22px;
       border-radius: var(--radius);
-      background: var(--card);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.76);
-      backdrop-filter: blur(14px);
       transition: 0.22s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .game-card:hover {
+    .gift-card:hover {
       transform: translateY(-7px) rotate(-1deg);
+      background: var(--card-strong);
     }
 
-    .game-card:nth-child(even):hover {
+    .gift-card:nth-child(even):hover {
       transform: translateY(-7px) rotate(1deg);
     }
 
-    .game-card::after {
+    .gift-card::after {
       content: "";
       position: absolute;
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       border-radius: 999px;
-      right: -46px;
-      bottom: -46px;
-      background: rgba(255, 122, 182, 0.18);
+      right: -55px;
+      bottom: -55px;
+      background: rgba(255, 138, 199, 0.16);
     }
 
     .emoji {
-      font-size: 2.4rem;
+      font-size: 2.45rem;
       margin-bottom: 18px;
       display: block;
     }
 
-    .game-card h3 {
-      font-size: 1.15rem;
+    .gift-card h3 {
+      font-size: 1.18rem;
       margin-bottom: 12px;
     }
 
-    .game-card p {
-      color: var(--muted);
-      line-height: 1.55;
+    .clue {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.13);
+      color: #fff0fb;
+      line-height: 1.6;
+      font-size: 0.93rem;
+      animation: pop 0.25s ease both;
+    }
+
+    .mini-btn {
+      position: relative;
+      z-index: 2;
+      margin-top: 18px;
+      border: 1px solid rgba(255,255,255,0.24);
+      cursor: pointer;
+      color: var(--text);
+      background: rgba(255,255,255,0.14);
+      border-radius: 999px;
+      min-height: 44px;
+      padding: 10px 13px;
+      font-weight: 900;
+      transition: 0.2s ease;
+    }
+
+    .mini-btn:hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    .photos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .photo-card {
+      border-radius: var(--radius);
+      padding: 14px;
+      overflow: hidden;
+      transform: rotate(-1deg);
+      transition: 0.22s ease;
+    }
+
+    .photo-card:nth-child(even) {
+      transform: rotate(1deg);
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px) rotate(0deg);
+      background: var(--card-strong);
+    }
+
+    .photo-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 22px;
+      display: block;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .photo-card p {
+      padding: 14px 8px 4px;
       font-size: 0.95rem;
+      text-align: center;
     }
 
     .note-board {
@@ -292,13 +570,12 @@
     }
 
     .letter {
-      background: rgba(255,255,255,0.76);
       border-radius: 36px;
-      box-shadow: var(--shadow);
       padding: clamp(24px, 4vw, 46px);
-      line-height: 1.8;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,0.78);
+    }
+
+    .letter p + p {
+      margin-top: 16px;
     }
 
     .letter strong {
@@ -306,10 +583,8 @@
     }
 
     .date-card {
-      background: linear-gradient(135deg, rgba(255,122,182,0.88), rgba(140,108,255,0.88));
-      color: white;
+      background: linear-gradient(135deg, rgba(255,138,199,0.32), rgba(168,140,255,0.28));
       border-radius: 36px;
-      box-shadow: var(--shadow);
       padding: clamp(24px, 4vw, 46px);
       display: flex;
       flex-direction: column;
@@ -323,11 +598,6 @@
       line-height: 1.03;
     }
 
-    .date-card p {
-      line-height: 1.7;
-      opacity: 0.94;
-    }
-
     .plan-list {
       list-style: none;
       display: grid;
@@ -335,19 +605,16 @@
     }
 
     .plan-list li {
-      background: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.13);
       padding: 13px 14px;
       border-radius: 18px;
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .secret {
       text-align: center;
-      background: rgba(255,255,255,0.72);
       border-radius: 38px;
       padding: clamp(28px, 6vw, 60px);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,0.75);
     }
 
     .secret h2 {
@@ -357,8 +624,6 @@
     }
 
     .secret p {
-      color: var(--muted);
-      line-height: 1.7;
       max-width: 650px;
       margin: 0 auto 24px;
     }
@@ -368,8 +633,10 @@
       margin-top: 24px;
       padding: 22px;
       border-radius: 24px;
-      background: #fff4bf;
-      font-weight: 900;
+      background: rgba(255, 211, 110, 0.18);
+      border: 1px solid rgba(255, 211, 110, 0.3);
+      color: #fff2bc;
+      font-weight: 950;
       line-height: 1.7;
       animation: pop 0.35s ease both;
     }
@@ -401,105 +668,349 @@
       to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
     }
 
-    @media (max-width: 980px) {
-      .games-grid {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 1020px) {
+      .hero {
+        grid-template-columns: 1fr;
       }
 
-      .game-card:last-child {
-        grid-column: span 2;
+      .hero-card {
+        text-align: center;
+      }
+
+      .button-row {
+        justify-content: center;
+      }
+
+      .hero-photos {
+        min-height: 450px;
+      }
+
+      .photo-stack {
+        min-height: 414px;
+      }
+
+      .vault-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
+      .page {
+        padding: 18px 14px 54px;
+      }
+
       header {
         align-items: flex-start;
         flex-direction: column;
+        margin-bottom: 26px;
+      }
+
+      .logo {
+        white-space: normal;
       }
 
       nav {
         justify-content: flex-start;
+        gap: 8px;
+      }
+
+      nav a {
+        font-size: 0.86rem;
+        padding: 9px 12px;
       }
 
       h1 {
         letter-spacing: -2px;
       }
 
-      .games-grid,
-      .note-board {
+      section {
+        margin: 62px 0;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 18px 0 32px;
+        gap: 18px;
+      }
+
+      .hero-card,
+      .hero-photos,
+      .music-player,
+      .letter,
+      .date-card,
+      .secret {
+        border-radius: 28px;
+      }
+
+      .hero-card {
+        padding: 26px 20px;
+      }
+
+      .button-row,
+      .controls {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-photos {
+        min-height: 360px;
+        padding: 12px;
+      }
+
+      .photo-stack {
+        min-height: 332px;
+      }
+
+      .photo-badge {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+        max-width: none;
+        font-size: 0.92rem;
+      }
+
+      .player-top {
+        align-items: flex-start;
+      }
+
+      .album-art {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        font-size: 2rem;
+      }
+
+      .progress-row {
+        grid-template-columns: 38px 1fr 38px;
+        gap: 8px;
+        font-size: 0.78rem;
+      }
+
+      .control-btn {
+        width: 50px;
+        height: 50px;
+      }
+
+      .play-btn {
+        width: 64px;
+        height: 64px;
+      }
+
+      .vault-grid,
+      .note-board,
+      .photos-grid {
         grid-template-columns: 1fr;
       }
 
-      .game-card:last-child {
-        grid-column: auto;
+      .gift-card {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .page {
+        padding-inline: 12px;
+      }
+
+      .tiny-label {
+        font-size: 0.86rem;
+      }
+
+      .hero p {
+        font-size: 0.98rem;
+      }
+
+      .section-title h2 {
+        letter-spacing: -1px;
+      }
+
+      .player-top {
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .album-art {
+        width: 86px;
+        height: 86px;
+      }
+
+      .volume-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .photo-card {
+        transform: none !important;
       }
     }
   </style>
 </head>
 <body>
-  <div class="sparkle"></div>
+  <div class="stars"></div>
 
   <main class="page">
     <header>
-      <div class="logo">🎮 Our Anniversary Arcade</div>
+      <div class="logo">🌙 The Secret Anniversary Vault</div>
       <nav>
-        <a href="#games">Games</a>
-        <a href="#note">Love Note</a>
+        <a href="#soundtrack">Songs</a>
+        <a href="#vault">Gifts</a>
+        <a href="#photos">Photos</a>
+        <a href="#note">Letter</a>
         <a href="#secret">Secret</a>
       </nav>
     </header>
 
     <section class="hero">
       <div class="hero-card">
-        <span class="tiny-label">Happy 2 Years, My Love</span>
-        <h1>A tiny arcade<br><span class="gradient-text">made for us.</span></h1>
+        <!-- CUSTOMISE THIS SMALL LABEL -->
+        <span class="tiny-label">Classified girlfriend material</span>
+
+        <!-- CUSTOMISE THIS BIG TITLE -->
+        <h1>Four mystery keys<br><span class="gradient-text">and absolutely no spoilers.</span></h1>
+
+        <!-- CUSTOMISE THIS INTRO MESSAGE -->
         <p>
-          I wanted to give you something cute, silly, and a little bit us. So here are five games,
-          five little adventures, and one big reminder that even with oceans between us, you are still
-          my favourite person to spend time with.
+          I made this little secret website because apparently just sending game keys like a normal person was too boring. There are four mystery games waiting for you, but you do not get to know what they are until Steam exposes my genius. No spoilers. Just clues, songs, photos, and me being annoyingly cute on purpose.
         </p>
         <div class="button-row">
-          <a class="btn" href="#games">Open your gifts 🎁</a>
-          <a class="btn secondary" href="#secret">Press for extra sweetness 💌</a>
+          <a class="btn" href="#soundtrack">Start with the songs 🎧</a>
+          <a class="btn secondary" href="#vault">Open the vault 🎁</a>
+        </div>
+      </div>
+
+      <div class="hero-photos" aria-label="A photo collage of us">
+        <div class="photo-stack">
+          <div class="stack-photo one">
+            <img src="photos/photo-1.jpg" alt="A favourite memory of us" />
+          </div>
+          <div class="stack-photo two">
+            <img src="photos/photo-2.jpg" alt="A cute memory of us" />
+          </div>
+          <div class="stack-photo three">
+            <img src="photos/photo-3.jpg" alt="Another favourite memory of us" />
+          </div>
+          <div class="photo-badge">Three tiny pieces of us, placed here very dramatically because I have taste.</div>
         </div>
       </div>
     </section>
 
-    <section id="games">
+    <section id="soundtrack">
       <div class="section-title">
-        <h2>Your 5 little game gifts</h2>
-        <p>Each one comes with a tiny mission: laugh, race, guess, quest, and make more memories together.</p>
+        <h2>A tiny soundtrack for us</h2>
+        <p>Two songs, one dramatic little player, and zero responsibility if you get emotional. Replace the files with your own songs in the GitHub repo.</p>
       </div>
 
-      <div class="games-grid">
-        <article class="game-card">
+      <div class="music-wrap">
+        <div class="music-player">
+          <div class="player-top">
+            <div class="album-art" id="albumArt">💗</div>
+            <div class="track-info">
+              <h3 id="trackTitle">Track 01: For when you miss me, unfortunately</h3>
+              <p class="music-subtitle" id="trackSubtitle">For the moments when the distance starts acting dramatic and pretending it is the main character.</p>
+            </div>
+          </div>
+
+          <audio id="audioPlayer" preload="metadata">
+            <source src="songs/song-1.mp3" type="audio/mpeg" />
+            Your browser does not support the audio player.
+          </audio>
+
+          <div class="progress-row">
+            <span id="currentTime">0:00</span>
+            <input id="progressBar" type="range" min="0" max="100" value="0" aria-label="Song progress" />
+            <span id="duration">0:00</span>
+          </div>
+
+          <div class="controls" aria-label="Music controls">
+            <button class="control-btn" onclick="previousTrack()" aria-label="Previous song">⏮</button>
+            <button class="control-btn play-btn" id="playPauseBtn" onclick="togglePlay()" aria-label="Play or pause">▶</button>
+            <button class="control-btn" onclick="nextTrack()" aria-label="Next song">⏭</button>
+          </div>
+
+          <div class="volume-row">
+            <span>Volume</span>
+            <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.75" aria-label="Volume" />
+            <span id="volumePercent">75%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vault">
+      <div class="section-title">
+        <h2>The 4 mystery gifts</h2>
+        <p>The games are hidden on purpose because suspense is free and I am on a budget. Use the private Steam keys I sent you, activate them one by one, then come back here and open the matching clue.</p>
+      </div>
+
+      <div class="vault-grid">
+        <article class="gift-card">
           <span class="emoji">⛳</span>
-          <h3>Super Battle Golf</h3>
-          <p>For when we need a tiny golf battle to decide who is the real champion of this relationship. Spoiler: I’ll still let you win… maybe.</p>
+          <h3>Mystery Gift #1</h3>
+          <!-- CUSTOMISE MYSTERY GIFT 1 MESSAGE -->
+          <p>Use Key #1 first. This one is for tiny competitions, fake confidence, and me pretending I am not emotionally invested in winning.</p>
+          <button class="mini-btn" onclick="toggleClue('clue1')">Open clue</button>
+          <!-- CUSTOMISE MYSTERY GIFT 1 CLUE -->
+          <div class="clue" id="clue1">Date-night rule: winner gets bragging rights. Loser gets called cute, which is honestly also a win.</div>
         </article>
 
-        <article class="game-card">
+        <article class="gift-card">
           <span class="emoji">🏎️</span>
-          <h3>LEGO 2K Drive</h3>
-          <p>A little racing adventure for us, because even from different countries, I still want to go on silly little journeys with you.</p>
+          <h3>Mystery Gift #2</h3>
+          <!-- CUSTOMISE MYSTERY GIFT 2 MESSAGE -->
+          <p>Use Key #2 next. This one is for speed, chaos, and me saying “I meant to do that” after crashing into something for the seventh time.</p>
+          <button class="mini-btn" onclick="toggleClue('clue2')">Open clue</button>
+          <!-- CUSTOMISE MYSTERY GIFT 2 CLUE -->
+          <div class="clue" id="clue2">Date-night rule: if one of us crashes, we blame the vehicle, the road, the universe, or lag. Never ourselves.</div>
         </article>
 
-        <article class="game-card">
+        <article class="gift-card">
           <span class="emoji">💡</span>
-          <h3>Who Wants to Be a Millionaire?</h3>
-          <p>For our future quiz nights, where we pretend to be smart, panic over easy questions, and somehow still choose the funniest answer together.</p>
+          <h3>Mystery Gift #3</h3>
+          <!-- CUSTOMISE MYSTERY GIFT 3 MESSAGE -->
+          <p>Use Key #3 after that. This one is for acting smart, panicking quietly, and picking an answer with the confidence of someone who has no idea.</p>
+          <button class="mini-btn" onclick="toggleClue('clue3')">Open clue</button>
+          <!-- CUSTOMISE MYSTERY GIFT 3 CLUE -->
+          <div class="clue" id="clue3">Date-night rule: if we get it wrong, the question was badly written and we are still geniuses.</div>
         </article>
 
-        <article class="game-card">
-          <span class="emoji">💍</span>
-          <h3>LEGO Lord of the Rings</h3>
-          <p>Because every great love story deserves an adventure, a little chaos, and someone worth crossing the whole world for. That someone is you.</p>
+        <article class="gift-card">
+          <span class="emoji">🗡️</span>
+          <h3>Mystery Gift #4</h3>
+          <!-- CUSTOMISE MYSTERY GIFT 4 MESSAGE -->
+          <p>Use Key #4 last. This one is for dramatic quests, tiny chaos, and me being your loyal travel companion even if I get lost immediately.</p>
+          <button class="mini-btn" onclick="toggleClue('clue4')">Open clue</button>
+          <!-- CUSTOMISE MYSTERY GIFT 4 CLUE -->
+          <div class="clue" id="clue4">Date-night rule: if there is danger, I will bravely stand behind you and offer emotional support.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="photos">
+      <div class="section-title">
+        <h2>Evidence that we are cute</h2>
+        <p>Because apparently I am sentimental now. Three pictures, three tiny memory cards, and yes, I made them look fancy.</p>
+      </div>
+
+      <div class="photos-grid">
+        <article class="photo-card">
+          <!-- Replace photos/photo-1.jpg with your own image file name -->
+          <img src="photos/photo-1.jpg" alt="A favourite memory of us" />
+          <p>My favourite kind of picture: anything with you in it. Disgustingly wholesome, I know.</p>
         </article>
 
-        <article class="game-card">
-          <span class="emoji">🧡</span>
-          <h3>LEGO The Hobbit</h3>
-          <p>A cozy little quest for us, because even the smallest adventures feel special when I get to share them with you.</p>
+        <article class="photo-card">
+          <!-- Replace photos/photo-2.jpg with your own image file name -->
+          <img src="photos/photo-2.jpg" alt="A cute memory of us" />
+          <p>A tiny memory I wanted to keep here because I am sentimental and apparently proud of it.</p>
+        </article>
+
+        <article class="photo-card">
+          <!-- Replace photos/photo-3.jpg with your own image file name -->
+          <img src="photos/photo-3.jpg" alt="Another favourite memory of us" />
+          <p>Proof that distance tried to be annoying and still lost.</p>
         </article>
       </div>
     </section>
@@ -507,58 +1018,168 @@
     <section id="note">
       <div class="note-board">
         <div class="letter">
+          <!-- CUSTOMISE THE MAIN LETTER BELOW -->
           <p><strong>My love,</strong></p>
           <p>
-            Two years with you has been my favourite story. Not because every chapter was easy,
-            but because every chapter had you in it. Even when we are far away, you still make ordinary days
-            feel softer, brighter, and a lot less lonely.
+            I wanted this to feel like a tiny treasure hunt instead of just a boring list of games, because you deserve effort and I apparently enjoy making extra work for myself.
           </p>
           <p>
-            These games are not just games. They are tiny doors. Date nights. Laughing fits. Bad decisions.
-            Cute victories. Little worlds where distance does not get the final boss fight.
+            Two years with you has been my favourite thing, even though the distance is very rude and should honestly apologise. You still make normal days feel warmer, funnier, and less boring. These gifts are little excuses for more calls, more laughing, more losing, more winning, and more of us saying “what are we even doing?”
           </p>
-          <p><strong>I love you, and I cannot wait to play through more of life with you.</strong></p>
+          <p><strong>I love you. Annoyingly much, actually. And I cannot wait to keep choosing you in every world.</strong></p>
         </div>
 
         <div class="date-card">
-          <h3>Our next game night plan</h3>
+          <h3>How to open the gifts without ruining the surprise</h3>
           <ul class="plan-list">
-            <li>1. Call each other first 📞</li>
-            <li>2. Pick one game at random 🎲</li>
-            <li>3. Snacks required, obviously 🍫</li>
-            <li>4. Winner gets bragging rights 👑</li>
-            <li>5. Loser still gets love 💗</li>
+            <li>1. Play one song first 🎧</li>
+            <li>2. Activate Mystery Key #1 on Steam 🔑</li>
+            <li>3. Come back and open the clue ✨</li>
+            <li>4. Repeat for all 4 gifts 🎁</li>
+            <li>5. Then we pick our first date-night game 💗</li>
           </ul>
-          <p>Official rule: if we get confused, we laugh. If we lose, we blame lag.</p>
+          <p>Official rule: no spoilers. Steam reveals the titles, and I get to enjoy your reaction like the romantic little mastermind I am.</p>
         </div>
       </div>
     </section>
 
     <section id="secret" class="secret">
-      <h2>Secret bonus gift</h2>
-      <p>Press this when you want a tiny reminder of how much you mean to me.</p>
+      <h2>Secret bonus message</h2>
+      <p>Press this after you have opened at least one gift. Do not cheat. I will somehow know.</p>
       <button class="btn" onclick="revealMessage()">Open secret message ✨</button>
+      <!-- CUSTOMISE THE SECRET MESSAGE BELOW -->
       <div class="hidden-message" id="hiddenMessage">
-        You are my favourite person, my favourite notification, my favourite goodnight, and my favourite adventure. Happy anniversary, baby. 💕
+        You are my favourite person, my favourite notification, my favourite goodnight, and my favourite little problem. Happy anniversary, baby. I love you more than I can properly explain without sounding cringe, so unfortunately this website exists. 💕
       </div>
     </section>
 
     <footer>
-      Made with love, pixels, and a suspicious amount of cuteness.<br />
-      Forever your player two. 🎮
+      Made with love, hidden keys, dramatic effort, and a suspicious amount of cuteness.<br />
+      Forever your player two, unless I am winning. Then I am player one. 🎮
     </footer>
   </main>
 
   <script>
+    const tracks = [
+      {
+        title: "Track 01: For when you miss me, unfortunately",
+        subtitle: "For the moments when the distance starts acting dramatic and pretending it is the main character.",
+        src: "songs/song-1.mp3",
+        emoji: "💗"
+      },
+      {
+        title: "Track 02: Game night fuel",
+        subtitle: "For laughing, losing, blaming lag, and acting like we definitely had a strategy.",
+        src: "songs/song-2.mp3",
+        emoji: "🎮"
+      }
+    ];
+
+    let currentTrack = 0;
+    const audio = document.getElementById("audioPlayer");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const progressBar = document.getElementById("progressBar");
+    const currentTimeEl = document.getElementById("currentTime");
+    const durationEl = document.getElementById("duration");
+    const volumeSlider = document.getElementById("volumeSlider");
+    const volumePercent = document.getElementById("volumePercent");
+    const trackTitle = document.getElementById("trackTitle");
+    const trackSubtitle = document.getElementById("trackSubtitle");
+    const albumArt = document.getElementById("albumArt");
+
+    audio.volume = Number(volumeSlider.value);
+
+    function loadTrack(index, shouldPlay = false) {
+      currentTrack = (index + tracks.length) % tracks.length;
+      const track = tracks[currentTrack];
+      audio.src = track.src;
+      trackTitle.textContent = track.title;
+      trackSubtitle.textContent = track.subtitle;
+      albumArt.textContent = track.emoji;
+      progressBar.value = 0;
+      currentTimeEl.textContent = "0:00";
+      durationEl.textContent = "0:00";
+
+      if (shouldPlay) {
+        audio.play().then(() => {
+          playPauseBtn.textContent = "⏸";
+        }).catch(() => {
+          playPauseBtn.textContent = "▶";
+        });
+      } else {
+        playPauseBtn.textContent = "▶";
+      }
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          playPauseBtn.textContent = "⏸";
+        }).catch(() => {
+          alert("Your browser blocked playback. Tap play again after the song file loads.");
+        });
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = "▶";
+      }
+    }
+
+    function nextTrack() {
+      loadTrack(currentTrack + 1, !audio.paused);
+      makeHearts(6);
+    }
+
+    function previousTrack() {
+      loadTrack(currentTrack - 1, !audio.paused);
+      makeHearts(6);
+    }
+
+    function formatTime(seconds) {
+      if (Number.isNaN(seconds) || !Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${secs}`;
+    }
+
+    audio.addEventListener("loadedmetadata", () => {
+      durationEl.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      if (!audio.duration) return;
+      progressBar.value = (audio.currentTime / audio.duration) * 100;
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener("ended", () => {
+      loadTrack(currentTrack + 1, true);
+    });
+
+    progressBar.addEventListener("input", () => {
+      if (!audio.duration) return;
+      audio.currentTime = (progressBar.value / 100) * audio.duration;
+    });
+
+    volumeSlider.addEventListener("input", () => {
+      audio.volume = Number(volumeSlider.value);
+      volumePercent.textContent = `${Math.round(audio.volume * 100)}%`;
+    });
+
+    function toggleClue(id) {
+      const clue = document.getElementById(id);
+      clue.style.display = clue.style.display === "block" ? "none" : "block";
+      makeHearts(8);
+    }
+
     function revealMessage() {
       const message = document.getElementById("hiddenMessage");
       message.style.display = "block";
-      makeHearts();
+      makeHearts(20);
     }
 
-    function makeHearts() {
-      const hearts = ["💗", "💖", "💘", "💕", "✨", "🧱", "🎮"];
-      for (let i = 0; i < 18; i++) {
+    function makeHearts(amount) {
+      const hearts = ["💗", "💖", "💘", "💕", "✨", "🌙", "🎮", "🔑"];
+      for (let i = 0; i < amount; i++) {
         const heart = document.createElement("div");
         heart.className = "floating-heart";
         heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
