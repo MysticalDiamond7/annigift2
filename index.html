@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Little Anniversary Arcade</title>
+  <style>
+    :root {
+      --bg-1: #fff1f7;
+      --bg-2: #f4e8ff;
+      --bg-3: #e8f8ff;
+      --text: #3c2548;
+      --muted: #7d5b8c;
+      --card: rgba(255, 255, 255, 0.78);
+      --accent: #ff7ab6;
+      --accent-2: #8c6cff;
+      --accent-3: #ffd166;
+      --shadow: 0 18px 45px rgba(83, 45, 105, 0.18);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 122, 182, 0.38), transparent 28%),
+        radial-gradient(circle at 80% 15%, rgba(140, 108, 255, 0.26), transparent 30%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2), var(--bg-3));
+      overflow-x: hidden;
+    }
+
+    .sparkle {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.9) 0 2px, transparent 3px),
+        radial-gradient(circle, rgba(255,122,182,0.45) 0 2px, transparent 3px),
+        radial-gradient(circle, rgba(140,108,255,0.4) 0 2px, transparent 3px);
+      background-size: 120px 120px, 180px 180px, 240px 240px;
+      animation: drift 22s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-120px); }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 18px 70px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 54px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.62);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      font-weight: 800;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.52);
+      transition: 0.2s ease;
+    }
+
+    nav a:hover {
+      transform: translateY(-2px);
+      background: white;
+    }
+
+    .hero {
+      min-height: 76vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 42px 0 70px;
+    }
+
+    .hero-card {
+      width: min(900px, 100%);
+      padding: clamp(30px, 7vw, 72px);
+      border-radius: 42px;
+      background: rgba(255,255,255,0.64);
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      background: rgba(255, 209, 102, 0.34);
+      border-radius: 999px;
+      right: -90px;
+      top: -90px;
+    }
+
+    .tiny-label {
+      display: inline-block;
+      padding: 9px 16px;
+      border-radius: 999px;
+      background: #fff0a8;
+      font-weight: 800;
+      margin-bottom: 18px;
+      transform: rotate(-1deg);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5.8rem);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      margin-bottom: 22px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      line-height: 1.7;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 900;
+      color: white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 24px rgba(255, 122, 182, 0.25);
+      transition: 0.22s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .btn.secondary {
+      color: var(--text);
+      background: white;
+    }
+
+    section {
+      margin: 82px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      letter-spacing: -2px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 640px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .game-card {
+      min-height: 260px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.76);
+      backdrop-filter: blur(14px);
+      transition: 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card:hover {
+      transform: translateY(-7px) rotate(-1deg);
+    }
+
+    .game-card:nth-child(even):hover {
+      transform: translateY(-7px) rotate(1deg);
+    }
+
+    .game-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      right: -46px;
+      bottom: -46px;
+      background: rgba(255, 122, 182, 0.18);
+    }
+
+    .emoji {
+      font-size: 2.4rem;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .game-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+    }
+
+    .game-card p {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .note-board {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .letter {
+      background: rgba(255,255,255,0.76);
+      border-radius: 36px;
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 4vw, 46px);
+      line-height: 1.8;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.78);
+    }
+
+    .letter strong {
+      color: var(--text);
+    }
+
+    .date-card {
+      background: linear-gradient(135deg, rgba(255,122,182,0.88), rgba(140,108,255,0.88));
+      color: white;
+      border-radius: 36px;
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 4vw, 46px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      min-height: 330px;
+    }
+
+    .date-card h3 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.03;
+    }
+
+    .date-card p {
+      line-height: 1.7;
+      opacity: 0.94;
+    }
+
+    .plan-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .plan-list li {
+      background: rgba(255,255,255,0.22);
+      padding: 13px 14px;
+      border-radius: 18px;
+      font-weight: 800;
+    }
+
+    .secret {
+      text-align: center;
+      background: rgba(255,255,255,0.72);
+      border-radius: 38px;
+      padding: clamp(28px, 6vw, 60px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.75);
+    }
+
+    .secret h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -2px;
+      margin-bottom: 14px;
+    }
+
+    .secret p {
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 650px;
+      margin: 0 auto 24px;
+    }
+
+    .hidden-message {
+      display: none;
+      margin-top: 24px;
+      padding: 22px;
+      border-radius: 24px;
+      background: #fff4bf;
+      font-weight: 900;
+      line-height: 1.7;
+      animation: pop 0.35s ease both;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding-top: 20px;
+      line-height: 1.7;
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 22px;
+      pointer-events: none;
+      animation: floatUp 4s linear forwards;
+      z-index: 5;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      12% { opacity: 1; }
+      to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+    }
+
+    @media (max-width: 980px) {
+      .games-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .game-card:last-child {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      nav {
+        justify-content: flex-start;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .games-grid,
+      .note-board {
+        grid-template-columns: 1fr;
+      }
+
+      .game-card:last-child {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkle"></div>
+
+  <main class="page">
+    <header>
+      <div class="logo">🎮 Our Anniversary Arcade</div>
+      <nav>
+        <a href="#games">Games</a>
+        <a href="#note">Love Note</a>
+        <a href="#secret">Secret</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-card">
+        <span class="tiny-label">Happy 2 Years, My Love</span>
+        <h1>A tiny arcade<br><span class="gradient-text">made for us.</span></h1>
+        <p>
+          I wanted to give you something cute, silly, and a little bit us. So here are five games,
+          five little adventures, and one big reminder that even with oceans between us, you are still
+          my favourite person to spend time with.
+        </p>
+        <div class="button-row">
+          <a class="btn" href="#games">Open your gifts 🎁</a>
+          <a class="btn secondary" href="#secret">Press for extra sweetness 💌</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="section-title">
+        <h2>Your 5 little game gifts</h2>
+        <p>Each one comes with a tiny mission: laugh, race, guess, quest, and make more memories together.</p>
+      </div>
+
+      <div class="games-grid">
+        <article class="game-card">
+          <span class="emoji">⛳</span>
+          <h3>Super Battle Golf</h3>
+          <p>For when we need a tiny golf battle to decide who is the real champion of this relationship. Spoiler: I’ll still let you win… maybe.</p>
+        </article>
+
+        <article class="game-card">
+          <span class="emoji">🏎️</span>
+          <h3>LEGO 2K Drive</h3>
+          <p>A little racing adventure for us, because even from different countries, I still want to go on silly little journeys with you.</p>
+        </article>
+
+        <article class="game-card">
+          <span class="emoji">💡</span>
+          <h3>Who Wants to Be a Millionaire?</h3>
+          <p>For our future quiz nights, where we pretend to be smart, panic over easy questions, and somehow still choose the funniest answer together.</p>
+        </article>
+
+        <article class="game-card">
+          <span class="emoji">💍</span>
+          <h3>LEGO Lord of the Rings</h3>
+          <p>Because every great love story deserves an adventure, a little chaos, and someone worth crossing the whole world for. That someone is you.</p>
+        </article>
+
+        <article class="game-card">
+          <span class="emoji">🧡</span>
+          <h3>LEGO The Hobbit</h3>
+          <p>A cozy little quest for us, because even the smallest adventures feel special when I get to share them with you.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="note">
+      <div class="note-board">
+        <div class="letter">
+          <p><strong>My love,</strong></p>
+          <p>
+            Two years with you has been my favourite story. Not because every chapter was easy,
+            but because every chapter had you in it. Even when we are far away, you still make ordinary days
+            feel softer, brighter, and a lot less lonely.
+          </p>
+          <p>
+            These games are not just games. They are tiny doors. Date nights. Laughing fits. Bad decisions.
+            Cute victories. Little worlds where distance does not get the final boss fight.
+          </p>
+          <p><strong>I love you, and I cannot wait to play through more of life with you.</strong></p>
+        </div>
+
+        <div class="date-card">
+          <h3>Our next game night plan</h3>
+          <ul class="plan-list">
+            <li>1. Call each other first 📞</li>
+            <li>2. Pick one game at random 🎲</li>
+            <li>3. Snacks required, obviously 🍫</li>
+            <li>4. Winner gets bragging rights 👑</li>
+            <li>5. Loser still gets love 💗</li>
+          </ul>
+          <p>Official rule: if we get confused, we laugh. If we lose, we blame lag.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="secret" class="secret">
+      <h2>Secret bonus gift</h2>
+      <p>Press this when you want a tiny reminder of how much you mean to me.</p>
+      <button class="btn" onclick="revealMessage()">Open secret message ✨</button>
+      <div class="hidden-message" id="hiddenMessage">
+        You are my favourite person, my favourite notification, my favourite goodnight, and my favourite adventure. Happy anniversary, baby. 💕
+      </div>
+    </section>
+
+    <footer>
+      Made with love, pixels, and a suspicious amount of cuteness.<br />
+      Forever your player two. 🎮
+    </footer>
+  </main>
+
+  <script>
+    function revealMessage() {
+      const message = document.getElementById("hiddenMessage");
+      message.style.display = "block";
+      makeHearts();
+    }
+
+    function makeHearts() {
+      const hearts = ["💗", "💖", "💘", "💕", "✨", "🧱", "🎮"];
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = Math.random() * 0.8 + "s";
+        heart.style.fontSize = 18 + Math.random() * 18 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4800);
+      }
+    }
+  </script>
+</body>
+</html>
